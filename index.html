@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Costa Leste | Roupas Tropicais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sun: #F2A922;
+  --sun-light: #F7C948;
+  --ocean: #0A6E78;
+  --ocean-deep: #064E55;
+  --ocean-light: #0E8B97;
+  --sand: #FAF3E8;
+  --sand-dark: #EDE3D0;
+  --coral: #E8634A;
+  --palm: #2D7A3A;
+  --palm-light: #4BA65A;
+  --ink: #1A1A1A;
+  --ink-soft: #4A4A4A;
+  --white: #FFFFFF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--sand);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background .4s, box-shadow .4s, padding .4s;
+}
+nav.scrolled {
+  background: rgba(250, 243, 232, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0,0,0,.08);
+  padding: .8rem 3rem;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ocean-deep);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--sun); }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: .92rem;
+  letter-spacing: .02em;
+  position: relative;
+  transition: color .3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--sun);
+  transition: width .3s;
+}
+.nav-links a:hover { color: var(--ocean); }
+.nav-links a:hover::after { width: 100%; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  width: 26px; height: 2.5px;
+  background: var(--ocean-deep);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--sand) 0%, #FDF6EC 40%, #E8F4F5 100%);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -15%;
+  width: 70vw; height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,169,34,.12) 0%, transparent 70%);
+  animation: float 8s ease-in-out infinite;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%; left: -10%;
+  width: 50vw; height: 50vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(10,110,120,.08) 0%, transparent 60%);
+  animation: float 10s ease-in-out infinite reverse;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -30px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 3rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: var(--ocean);
+  color: var(--white);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .5rem 1.2rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp .8s ease forwards;
+  opacity: 0;
+}
+.hero-tag::before {
+  content: '☀';
+  font-size: .9rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  line-height: 1.08;
+  color: var(--ocean-deep);
+  margin-bottom: 1.5rem;
+  animation: fadeUp .8s ease .15s forwards;
+  opacity: 0;
+}
+.hero h1 em {
+  color: var(--sun);
+  font-style: italic;
+}
+.hero-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin-bottom: 2rem;
+  animation: fadeUp .8s ease .3s forwards;
+  opacity: 0;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--sun);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 2.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform .3s, box-shadow .3s, background .3s;
+  animation: fadeUp .8s ease .45s forwards;
+  opacity: 0;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(242,169,34,.35);
+  background: var(--sun-light);
+}
+.hero-cta svg { transition: transform .3s; }
+.hero-cta:hover svg { transform: translateX(4px); }
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeUp 1s ease .3s forwards;
+  opacity: 0;
+}
+.hero-illustration {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-light) 50%, var(--palm-light) 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,110,120,.2);
+  animation: morph 12s ease-in-out infinite;
+}
+@keyframes morph {
+  0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  25% { border-radius: 58% 42% 36% 64% / 43% 58% 42% 57%; }
+  50% { border-radius: 45% 55% 62% 38% / 53% 45% 55% 47%; }
+  75% { border-radius: 60% 40% 45% 55% / 38% 62% 38% 62%; }
+}
+.hero-illustration::before {
+  content: '🌴';
+  position: absolute;
+  font-size: 8rem;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .2;
+}
+.hero-illustration .overlay-text {
+  position: absolute;
+  bottom: 2rem; left: 2rem;
+  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 20px rgba(0,0,0,.3);
+}
+.hero-illustration .overlay-text span {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: .5rem;
+  opacity: .8;
+}
+
+.stat-cards {
+  position: absolute;
+  bottom: -1rem; right: -1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+.stat-card {
+  background: var(--white);
+  padding: 1rem 1.4rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+  min-width: 160px;
+}
+.stat-card .num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ocean-deep);
+}
+.stat-card .label {
+  font-size: .78rem;
+  color: var(--ink-soft);
+  margin-top: .15rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION COMMONS ── */
+section { padding: 6rem 3rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--sun);
+  margin-bottom: .8rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--ocean-deep);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+.section-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 600px;
+}
+
+/* ── SOBRE ── */
+.sobre { background: var(--white); }
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+.sobre-visual {
+  position: relative;
+  height: 400px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, var(--ocean-deep) 0%, var(--ocean-light) 100%);
+}
+.sobre-visual .year-badge {
+  position: absolute;
+  top: 2rem; left: 2rem;
+  background: var(--sun);
+  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  line-height: 1;
+}
+.sobre-visual .year-badge span {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: .4rem;
+}
+.sobre-visual .pattern {
+  position: absolute;
+  inset: 0;
+  opacity: .08;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, var(--white) 20px, var(--white) 22px);
+}
+.sobre-visual .icon-row {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem; right: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+.sobre-visual .icon-item {
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+  color: var(--white);
+  padding: .8rem 1.2rem;
+  border-radius: 12px;
+  font-size: .82rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.sobre-details h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--ocean-deep);
+  margin-bottom: 1rem;
+}
+.sobre-details p {
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.info-item {
+  background: var(--sand);
+  padding: 1.2rem;
+  border-radius: 14px;
+}
+.info-item .info-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ocean);
+  margin-bottom: .35rem;
+}
+.info-item .info-value {
+  font-size: .92rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ── ATIVIDADES ── */
+.atividades { background: var(--sand); }
+.atv-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.atv-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2.2rem;
+  transition: transform .3s, box-shadow .3s;
+  position: relative;
+  overflow: hidden;
+}
+.atv-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.08);
+}
+.atv-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: 20px 20px 0 0;
+}
+.atv-card:nth-child(1)::before { background: var(--sun); }
+.atv-card:nth-child(2)::before { background: var(--ocean); }
+.atv-card:nth-child(3)::before { background: var(--coral); }
+
+.atv-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+.atv-card:nth-child(1) .atv-icon { background: rgba(242,169,34,.12); }
+.atv-card:nth-child(2) .atv-icon { background: rgba(10,110,120,.1); }
+.atv-card:nth-child(3) .atv-icon { background: rgba(232,99,74,.1); }
+
+.atv-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ocean-deep);
+  margin-bottom: .6rem;
+}
+.atv-card .cnae {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  color: var(--ink-soft);
+  opacity: .6;
+  margin-bottom: .8rem;
+}
+.atv-card p {
+  font-size: .92rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* ── CONTATO ── */
+.contato {
+  background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean) 60%, var(--ocean-light) 100%);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.contato::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 60vw; height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,169,34,.1) 0%, transparent 60%);
+}
+.contato .section-label { color: var(--sun-light); }
+.contato .section-title { color: var(--white); }
+.contato .section-desc { color: rgba(255,255,255,.75); }
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 2;
+}
+.contato-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.contato-item {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+.contato-icon {
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.contato-item h4 {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--sun-light);
+  margin-bottom: .3rem;
+}
+.contato-item p {
+  font-size: .95rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.85);
+}
+
+.contato-card {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 2.5rem;
+}
+.contato-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.dados-empresa {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.dado-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.dado-row:last-child { border-bottom: none; padding-bottom: 0; }
+.dado-label {
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.5);
+}
+.dado-value {
+  font-size: .95rem;
+  font-weight: 500;
+  text-align: right;
+  color: var(--white);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #032B30;
+  color: rgba(255,255,255,.5);
+  padding: 2.5rem 3rem;
+  text-align: center;
+  font-size: .85rem;
+}
+footer strong { color: var(--sun-light); font-weight: 600; }
+footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+footer a:hover { color: var(--white); }
+.footer-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: .7rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  section { padding: 4rem 1.5rem; }
+  .hero-content { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; }
+  .hero-visual { order: -1; }
+  .hero-illustration { max-width: 300px; }
+  .stat-cards { position: static; flex-direction: row; margin-top: 1rem; }
+  .sobre-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .sobre-visual { height: 280px; }
+  .atv-cards { grid-template-columns: 1fr; }
+  .contato-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .footer-row { flex-direction: column; gap: .5rem; }
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Costa <span>Leste</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#atividades">Atividades</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <button class="hamburger" onclick="this.classList.toggle('active')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div>
+      <div class="hero-tag">Desde 1995 &middot; Salvador, BA</div>
+      <h1>Moda que veste o<br><em>calor tropical</em></h1>
+      <p class="hero-text">Há mais de 30 anos confeccionando peças de vestuário com a identidade vibrante do Nordeste brasileiro. Costa Leste é tradição, qualidade e estilo tropical.</p>
+      <a href="#contato" class="hero-cta">
+        Fale conosco
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-illustration">
+        <div class="overlay-text">
+          Costa Leste
+          <span>Roupas Tropicais</span>
+        </div>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="num">+30</div>
+          <div class="label">Anos de mercado</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">1995</div>
+          <div class="label">Fundação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="section-inner">
+    <div class="section-label reveal">Quem somos</div>
+    <div class="section-title reveal">Tradição e inovação em<br>vestuário tropical</div>
+    <div class="sobre-grid">
+      <div class="sobre-visual reveal">
+        <div class="pattern"></div>
+        <div class="year-badge">1995<span>Fundada em</span></div>
+        <div class="icon-row">
+          <div class="icon-item">✂️ Confecção</div>
+          <div class="icon-item">🧶 Malharia</div>
+          <div class="icon-item">🛍️ Varejo</div>
+        </div>
+      </div>
+      <div class="sobre-details reveal">
+        <h3>Costa Leste Roupas Tropicais</h3>
+        <p>Fundada em março de 1995 em Salvador, Bahia, a Costa Leste é uma empresa dedicada à confecção de peças de vestuário com identidade tropical. Ao longo de três décadas, nos consolidamos como referência em moda acessível com a cara do verão brasileiro.</p>
+        <p>Da fabricação à venda direta, cuidamos de cada etapa para garantir qualidade, conforto e estilo em todas as nossas peças.</p>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Razão Social</div>
+            <div class="info-value">Costa Leste Roupas Tropicais Ltda</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">CNPJ</div>
+            <div class="info-value">00.509.012/0001-46</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Porte</div>
+            <div class="info-value">EPP</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Natureza Jurídica</div>
+            <div class="info-value">Sociedade Empresária Limitada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATIVIDADES -->
+<section class="atividades" id="atividades">
+  <div class="section-inner">
+    <div class="section-label reveal">O que fazemos</div>
+    <div class="section-title reveal">Nossas atividades</div>
+    <p class="section-desc reveal">Da criação à vitrine, atuamos em toda a cadeia do vestuário tropical.</p>
+    <div class="atv-cards">
+      <div class="atv-card reveal">
+        <div class="atv-icon">✂️</div>
+        <div class="cnae">CNAE 1412-6/01 &middot; Principal</div>
+        <h3>Confecção de Vestuário</h3>
+        <p>Produção de peças de vestuário com foco em moda tropical, exceto roupas íntimas e sob medida. Nossa atividade-fim desde 1995.</p>
+      </div>
+      <div class="atv-card reveal">
+        <div class="atv-icon">🧶</div>
+        <div class="cnae">CNAE 1422-3/00 &middot; Secundária</div>
+        <h3>Malharia e Tricotagem</h3>
+        <p>Fabricação de artigos do vestuário produzidos em malharias e tricotagens, ampliando nossa capacidade produtiva e variedade de tecidos.</p>
+      </div>
+      <div class="atv-card reveal">
+        <div class="atv-icon">🛍️</div>
+        <div class="cnae">CNAE 4781-4/00 &middot; Secundária</div>
+        <h3>Comércio Varejista</h3>
+        <p>Venda direta de artigos do vestuário e acessórios ao consumidor final, levando moda tropical com preço acessível.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="section-inner">
+    <div class="section-label reveal">Contato</div>
+    <div class="section-title reveal">Fale com a Costa Leste</div>
+    <p class="section-desc reveal">Entre em contato conosco ou visite nosso endereço.</p>
+    <div class="contato-grid">
+      <div class="contato-info reveal">
+        <div class="contato-item">
+          <div class="contato-icon">📍</div>
+          <div>
+            <h4>Endereço</h4>
+            <p>Travessa Doutor Ladislau Cavalcanti, 12<br>2º Andar, Pau Miúdo<br>CEP 40310-595 &middot; Salvador, BA</p>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-icon">📧</div>
+          <div>
+            <h4>E-mail</h4>
+            <p>sac@lgncontabil.com.br</p>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-icon">📞</div>
+          <div>
+            <h4>Telefone</h4>
+            <p>(71) 3431-5535</p>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-icon">🕐</div>
+          <div>
+            <h4>Horário</h4>
+            <p>Segunda a Sexta, 9h às 18h</p>
+          </div>
+        </div>
+      </div>
+      <div class="contato-card reveal">
+        <h3>Dados da Empresa</h3>
+        <div class="dados-empresa">
+          <div class="dado-row">
+            <span class="dado-label">Razão Social</span>
+            <span class="dado-value">Costa Leste Roupas<br>Tropicais Ltda</span>
+          </div>
+          <div class="dado-row">
+            <span class="dado-label">CNPJ</span>
+            <span class="dado-value">00.509.012/0001-46</span>
+          </div>
+          <div class="dado-row">
+            <span class="dado-label">Situação</span>
+            <span class="dado-value" style="color: #5CEB7B;">● Ativa</span>
+          </div>
+          <div class="dado-row">
+            <span class="dado-label">Porte</span>
+            <span class="dado-value">EPP</span>
+          </div>
+          <div class="dado-row">
+            <span class="dado-label">Abertura</span>
+            <span class="dado-value">24/03/1995</span>
+          </div>
+          <div class="dado-row">
+            <span class="dado-label">Natureza Jurídica</span>
+            <span class="dado-value">206-2 &middot; Soc. Emp. Ltda</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-row">
+    <span>&copy; 2025 <strong>Costa Leste Roupas Tropicais Ltda</strong> &middot; CNPJ 00.509.012/0001-46</span>
+    <span>Salvador, BA &middot; Todos os direitos reservados</span>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
